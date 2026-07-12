@@ -67,10 +67,10 @@ async function init(){
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
   const layout = document.getElementById('layout');
-  if (!slug) { layout.innerHTML = '<p>Tur bulunamadı.</p>'; return; }
+  if (!slug) { layout.innerHTML = '<p>Çekim bulunamadı.</p>'; return; }
 
   const { data: t, error } = await sb.from('kubbe_tours').select('*, kubbe_categories(name, slug)').eq('slug', slug).maybeSingle();
-  if (error || !t) { layout.innerHTML = '<p>Bu tur mevcut değil.</p>'; return; }
+  if (error || !t) { layout.innerHTML = '<p>Bu çekim mevcut değil.</p>'; return; }
 
   document.title = t.title + ' — KUBBE İSTANBUL';
   const cat = t.kubbe_categories;

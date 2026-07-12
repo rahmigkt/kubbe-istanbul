@@ -8,8 +8,8 @@
 <link rel="icon" href="assets/logo/mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css?v=3">
 <style>
   .hero{position:relative; min-height:100vh; display:flex; align-items:flex-end; overflow:hidden; padding-top:100px;}
   .hero-bg{position:absolute; inset:0; z-index:0; background:linear-gradient(135deg, var(--teal-light), var(--teal-deep)); background-size:cover; background-position:center;}
@@ -114,11 +114,12 @@
   <div class="navbar">
     <a href="index.html" class="wordmark"><img src="assets/logo/mark.png" alt="Kubbe İstanbul"></a>
     <div class="navlinks">
-      <a href="#turlar">Çekimler</a>
-      <a href="#galeri">Galeri</a>
-      <a href="#hakkimizda">Hakkımızda</a>
-      <a href="https://wa.me/905327207916" target="_blank" rel="noopener" style="color:#1a8a45;">WhatsApp</a>
-      <a href="teklif.html" class="cta-link">Rezervasyon</a>
+      <a href="#turlar" data-i18n="nav_shoots">Çekimler</a>
+      <a href="#galeri" data-i18n="nav_gallery">Galeri</a>
+      <a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a>
+      <a href="https://wa.me/905327207916" target="_blank" rel="noopener" style="color:#1a8a45;" data-i18n="nav_whatsapp">WhatsApp</a>
+      <div class="lang-switch" id="langSwitch"></div>
+      <a href="teklif.html" class="cta-link" data-i18n="nav_reserve">Rezervasyon</a>
     </div>
   </div>
 </header>
@@ -127,12 +128,12 @@
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-scrim"></div>
   <div class="wrap hero-content">
-    <span class="eyebrow">Teras Fotoğraf Deneyimi</span>
+    <span class="eyebrow" data-i18n="hero_eyebrow">Teras Fotoğraf Deneyimi</span>
     <h1 id="heroTagline">İstanbul'u, Kendi Hikayesinden Dinleyin</h1>
-    <p class="tagline">Galata Kulesi ve Süleymaniye manzaralı özel teraslarımızda, uçuşan elbiseler ve martılar eşliğinde unutulmaz bir kare.</p>
+    <p class="tagline" data-i18n="hero_sub">Galata Kulesi ve Süleymaniye manzaralı özel teraslarımızda, uçuşan elbiseler ve martılar eşliğinde unutulmaz bir kare.</p>
     <div class="hero-ctas">
-      <a href="#turlar" class="btn btn-solid">Çekimleri Keşfet →</a>
-      <a href="teklif.html" class="btn btn-line" style="border-color:rgba(255,255,255,0.5); color:#fff;">Rezervasyon Al</a>
+      <a href="#turlar" class="btn btn-solid" data-i18n="hero_cta_explore">Çekimleri Keşfet →</a>
+      <a href="teklif.html" class="btn btn-line" style="border-color:rgba(255,255,255,0.5); color:#fff;" data-i18n="hero_cta_reserve">Rezervasyon Al</a>
     </div>
   </div>
 </section>
@@ -146,7 +147,7 @@
 <section class="about" id="hakkimizda">
   <div class="wrap about-inner">
     <div class="diamond"></div>
-    <span class="eyebrow">Hakkımızda</span>
+    <span class="eyebrow" data-i18n="about_eyebrow">Hakkımızda</span>
     <div id="aboutBody" style="margin-top:24px;">
       <p class="skeleton" style="height:80px;"></p>
       <p class="skeleton" style="height:80px;"></p>
@@ -156,18 +157,18 @@
 
 <section class="specs-section">
   <div class="specs">
-    <div class="spec-item"><span class="spec-label">Lokasyon</span><span class="spec-value">Galata · Süleymaniye</span></div>
-    <div class="spec-item"><span class="spec-label">Kostüm</span><span class="spec-value">Stüdyodan Temin Edilir</span></div>
-    <div class="spec-item"><span class="spec-label">Süre</span><span class="spec-value">30-60 Dakika</span></div>
-    <div class="spec-item"><span class="spec-label">Rezervasyon</span><span class="spec-value">Instagram · WhatsApp</span></div>
+    <div class="spec-item"><span class="spec-label" data-i18n="specs_location_label">Lokasyon</span><span class="spec-value" data-i18n="specs_location_value">Galata · Süleymaniye</span></div>
+    <div class="spec-item"><span class="spec-label" data-i18n="specs_costume_label">Kostüm</span><span class="spec-value" data-i18n="specs_costume_value">Stüdyodan Temin Edilir</span></div>
+    <div class="spec-item"><span class="spec-label" data-i18n="specs_duration_label">Süre</span><span class="spec-value" data-i18n="specs_duration_value">30-60 Dakika</span></div>
+    <div class="spec-item"><span class="spec-label" data-i18n="specs_booking_label">Rezervasyon</span><span class="spec-value" data-i18n="specs_booking_value">Instagram · WhatsApp</span></div>
   </div>
 </section>
 
 <section id="turlar">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Çekimler</span>
-      <h2>İki teras, sayısız kare</h2>
+      <span class="eyebrow" data-i18n="shoots_eyebrow">Çekimler</span>
+      <h2 data-i18n="shoots_heading">İki teras, sayısız kare</h2>
     </div>
     <div class="collection-grid" id="categoryGrid">
       <div class="col-card"><div class="img-wrap skeleton"></div><div class="col-body"><div class="skeleton" style="height:20px;width:60%"></div></div></div>
@@ -175,15 +176,15 @@
       <div class="col-card"><div class="img-wrap skeleton"></div><div class="col-body"><div class="skeleton" style="height:20px;width:60%"></div></div></div>
       <div class="col-card"><div class="img-wrap skeleton"></div><div class="col-body"><div class="skeleton" style="height:20px;width:60%"></div></div></div>
     </div>
-    <p class="catalog-note" id="catalogNote">Turlar yükleniyor…</p>
+    <p class="catalog-note" id="catalogNote" data-i18n="shoots_loading">Çekimler yükleniyor…</p>
   </div>
 </section>
 
 <section class="gallery-section" id="galeri">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Galeri</span>
-      <h2>Rotadan kareler</h2>
+      <span class="eyebrow" data-i18n="gallery_eyebrow">Galeri</span>
+      <h2 data-i18n="gallery_heading">Rotadan kareler</h2>
     </div>
     <div class="carousel">
       <div class="carousel-track" id="carouselTrack"></div>
@@ -195,8 +196,8 @@
 <section class="video-section" id="videolar">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Video</span>
-      <h2>Hareket halinde İstanbul</h2>
+      <span class="eyebrow" data-i18n="video_eyebrow">Video</span>
+      <h2 data-i18n="video_heading">Hareket halinde İstanbul</h2>
     </div>
     <div class="video-grid" id="videoGrid"></div>
   </div>
@@ -205,9 +206,9 @@
 <section class="contact" id="iletisim">
   <div class="wrap contact-inner">
     <div>
-      <span class="eyebrow">İletişim</span>
-      <h2>Programınızı birlikte planlayalım</h2>
-      <p class="lead">Turlarımız kişiye ve gruba özel olarak planlanır. Tarih, süre ve rota tercihlerinizi bize iletin.</p>
+      <span class="eyebrow" data-i18n="contact_eyebrow">İletişim</span>
+      <h2 data-i18n="contact_heading">Programınızı birlikte planlayalım</h2>
+      <p class="lead" data-i18n="contact_lead">Çekimlerimiz kişiye ve gruba özel olarak planlanır. Tarih, süre ve lokasyon tercihlerinizi bize iletin.</p>
       <div class="contact-locations" id="contactLocations"></div>
     </div>
     <div class="contact-card" id="contactCard"></div>
@@ -217,21 +218,27 @@
 <footer>
   <div class="wrap foot-inner">
     <span class="foot-word">KUBBE İSTANBUL</span>
-    <span class="foot-meta">Teras Fotoğraf Deneyimi</span>
+    <span class="foot-meta" data-i18n="footer_tagline">Teras Fotoğraf Deneyimi</span>
     <span class="foot-meta">© 2026 Kubbe İstanbul</span>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/shared.js?v=2"></script>
+<script src="assets/i18n.js?v=1"></script>
 <script>
+const CUR_LANG = getLang();
+applyStaticTranslations();
+renderLangSwitcher('langSwitch');
+
 async function loadSiteContent(){
   const { data, error } = await sb.from('kubbe_site_content').select('key,value');
   if (error || !data) return;
   const map = {};
   data.forEach(r => map[r.key] = r.value);
 
-  if (map.hero_tagline) document.getElementById('heroTagline').textContent = map.hero_tagline;
+  const heroTaglineVal = scValue(map, 'hero_tagline', CUR_LANG) || t('hero_tagline_default');
+  document.getElementById('heroTagline').textContent = heroTaglineVal;
 
   const heroBg = document.getElementById('heroBg');
   const heroImg = publicImageUrl(map.hero_image);
@@ -243,23 +250,26 @@ async function loadSiteContent(){
   }
 
   const aBody = document.getElementById('aboutBody');
+  const p1 = scValue(map, 'about_p1', CUR_LANG);
+  const p2 = scValue(map, 'about_p2', CUR_LANG);
+  const closing = scValue(map, 'about_closing', CUR_LANG);
   aBody.innerHTML =
-    (map.about_p1 ? '<p>'+escapeHtml(map.about_p1)+'</p>' : '') +
-    (map.about_p2 ? '<p>'+escapeHtml(map.about_p2)+'</p>' : '') +
-    (map.about_closing ? '<p class="closing">'+escapeHtml(map.about_closing)+'</p>' : '');
+    (p1 ? '<p>'+escapeHtml(p1)+'</p>' : '') +
+    (p2 ? '<p>'+escapeHtml(p2)+'</p>' : '') +
+    (closing ? '<p class="closing">'+escapeHtml(closing)+'</p>' : '');
 
   const locs = document.getElementById('contactLocations');
   locs.innerHTML =
-    (map.contact_office ? '<div class="loc-item"><span class="loc-label">Ofis</span><span class="loc-value">'+escapeHtml(map.contact_office)+'</span></div>' : '') +
-    (map.contact_phone ? '<div class="loc-item"><span class="loc-label">Telefon</span><span class="loc-value">'+escapeHtml(map.contact_phone)+'</span></div>' : '');
+    (map.contact_office ? '<div class="loc-item"><span class="loc-label">'+t('loc_office')+'</span><span class="loc-value">'+escapeHtml(map.contact_office)+'</span></div>' : '') +
+    (map.contact_phone ? '<div class="loc-item"><span class="loc-label">'+t('loc_phone')+'</span><span class="loc-value">'+escapeHtml(map.contact_phone)+'</span></div>' : '');
 
   const phoneDigits = (map.contact_phone||'').replace(/\D/g,'');
   const card = document.getElementById('contactCard');
   card.innerHTML =
-    (map.instagram_handle ? '<div class="row"><label>Instagram</label><a class="big-link" href="https://instagram.com/'+escapeHtml(map.instagram_handle)+'" target="_blank" rel="noopener">@'+escapeHtml(map.instagram_handle)+'</a></div>' : '') +
-    (map.contact_phone && phoneDigits ? '<div class="row"><label>Telefon</label><a class="big-link" href="tel:+90'+phoneDigits.slice(-10)+'">'+escapeHtml(map.contact_phone)+'</a></div>' : '') +
-    (phoneDigits ? '<div class="row" style="margin-bottom:0;"><label>WhatsApp</label><a class="big-link" href="https://wa.me/90'+phoneDigits.slice(-10)+'" target="_blank" rel="noopener">Mesaj Gönder →</a></div>' : '') +
-    '<div class="row" style="margin-bottom:0; margin-top:10px;"><a href="teklif.html" class="btn btn-solid" style="justify-content:center;">Rezervasyon Formu →</a></div>';
+    (map.instagram_handle ? '<div class="row"><label>'+t('card_instagram')+'</label><a class="big-link" href="https://instagram.com/'+escapeHtml(map.instagram_handle)+'" target="_blank" rel="noopener">@'+escapeHtml(map.instagram_handle)+'</a></div>' : '') +
+    (map.contact_phone && phoneDigits ? '<div class="row"><label>'+t('card_phone')+'</label><a class="big-link" href="tel:+90'+phoneDigits.slice(-10)+'">'+escapeHtml(map.contact_phone)+'</a></div>' : '') +
+    (phoneDigits ? '<div class="row" style="margin-bottom:0;"><label>'+t('card_whatsapp')+'</label><a class="big-link" href="https://wa.me/90'+phoneDigits.slice(-10)+'" target="_blank" rel="noopener">'+t('card_whatsapp_send')+'</a></div>' : '') +
+    '<div class="row" style="margin-bottom:0; margin-top:10px;"><a href="teklif.html" class="btn btn-solid" style="justify-content:center;">'+t('contact_reserve_btn')+'</a></div>';
 }
 
 async function loadCategories(){
@@ -268,21 +278,23 @@ async function loadCategories(){
   const note = document.getElementById('catalogNote');
   if (error || !data || data.length === 0) {
     grid.innerHTML = '';
-    note.textContent = 'Turlar yakında yayında';
+    note.textContent = t('shoots_loading');
     return;
   }
   grid.innerHTML = data.map(cat => {
     const img = publicImageUrl(cat.sample_image_url);
+    const name = colValue(cat, 'name', CUR_LANG);
+    const desc = colValue(cat, 'description', CUR_LANG);
     const media = img
-      ? '<div class="img-wrap"><img src="'+img+'" alt="'+escapeHtml(cat.name)+'" loading="lazy"></div>'
+      ? '<div class="img-wrap"><img src="'+img+'" alt="'+escapeHtml(name)+'" loading="lazy"></div>'
       : '<div class="img-wrap"><div class="col-icon">'+categoryIcon(cat.slug)+'</div></div>';
     return '<a class="col-card" href="kategori.html?slug='+encodeURIComponent(cat.slug)+'">'+
       media +
-      '<div class="col-body"><h3>'+escapeHtml(cat.name)+'</h3>'+
-      (cat.description ? '<p>'+escapeHtml(cat.description)+'</p>' : '') +
-      '<span class="tag">Turları Gör →</span></div></a>';
+      '<div class="col-body"><h3>'+escapeHtml(name)+'</h3>'+
+      (desc ? '<p>'+escapeHtml(desc)+'</p>' : '') +
+      '<span class="tag">'+t('shoots_view')+'</span></div></a>';
   }).join('');
-  note.textContent = 'Tüm turlar için bir kategori seçin';
+  note.textContent = t('shoots_see_all');
 }
 
 async function loadFeatured(){
@@ -298,14 +310,15 @@ async function loadFeatured(){
   }
   if (items.length === 0) { grid.style.display = 'none'; return; }
 
-  grid.innerHTML = items.map(t => {
-    const img = publicImageUrl(t.image_url);
-    const catSlug = t.kubbe_categories ? t.kubbe_categories.slug : 'default';
+  grid.innerHTML = items.map(tr => {
+    const img = publicImageUrl(tr.image_url);
+    const catSlug = tr.kubbe_categories ? tr.kubbe_categories.slug : 'default';
+    const title = colValue(tr, 'title', CUR_LANG);
     const media = img
-      ? '<img src="'+img+'" alt="'+escapeHtml(t.title)+'" loading="lazy">'
+      ? '<img src="'+img+'" alt="'+escapeHtml(title)+'" loading="lazy">'
       : '<div class="feat-icon">'+categoryIcon(catSlug)+'</div>';
-    return '<a class="feat-tile" href="tur.html?slug='+encodeURIComponent(t.slug)+'">'+media+
-      '<div class="feat-label">'+escapeHtml(t.title)+'</div></a>';
+    return '<a class="feat-tile" href="tur.html?slug='+encodeURIComponent(tr.slug)+'">'+media+
+      '<div class="feat-label">'+escapeHtml(title)+'</div></a>';
   }).join('');
 }
 
@@ -323,7 +336,7 @@ async function loadGallery(){
     .select('*, kubbe_categories(slug)').order('sort_order');
 
   if (error || !data || data.length === 0) {
-    track.innerHTML = '<div class="catalog-note" style="padding:80px 0;">Galeri için turlar yakında eklenecek</div>';
+    track.innerHTML = '<div class="catalog-note" style="padding:80px 0;"></div>';
     return;
   }
 
@@ -336,22 +349,25 @@ async function loadGallery(){
   }
   carouselItems = items.slice(0, 10);
 
-  track.innerHTML = carouselItems.map((t, i) => {
-    const img = publicImageUrl(t.image_url);
-    const catSlug = t.kubbe_categories ? t.kubbe_categories.slug : 'default';
+  track.innerHTML = carouselItems.map((tr, i) => {
+    const img = publicImageUrl(tr.image_url);
+    const catSlug = tr.kubbe_categories ? tr.kubbe_categories.slug : 'default';
+    const title = colValue(tr, 'title', CUR_LANG);
+    const desc = colValue(tr, 'description', CUR_LANG);
+    const duration = colValue(tr, 'duration', CUR_LANG);
+    const groupSize = colValue(tr, 'group_size', CUR_LANG);
     const media = img
-      ? '<div class="c-img"><img src="'+img+'" alt="'+escapeHtml(t.title)+'" loading="lazy"></div>'
+      ? '<div class="c-img"><img src="'+img+'" alt="'+escapeHtml(title)+'" loading="lazy"></div>'
       : '<div class="c-img"><div class="c-icon">'+categoryIcon(catSlug)+'</div></div>';
     let facts = '';
-    if (t.duration) facts += '<div class="c-fact"><span class="k">Süre</span><span class="v">'+escapeHtml(t.duration)+'</span></div>';
-    if (t.group_size) facts += '<div class="c-fact"><span class="k">Grup</span><span class="v">'+escapeHtml(t.group_size)+'</span></div>';
-    if (t.language) facts += '<div class="c-fact"><span class="k">Dil</span><span class="v">'+escapeHtml(t.language)+'</span></div>';
+    if (duration) facts += '<div class="c-fact"><span class="k">'+t('spec_duration')+'</span><span class="v">'+escapeHtml(duration)+'</span></div>';
+    if (groupSize) facts += '<div class="c-fact"><span class="k">'+t('spec_group')+'</span><span class="v">'+escapeHtml(groupSize)+'</span></div>';
     return '<div class="c-slide'+(i===0?' active':'')+'" data-i="'+i+'">'+
       media +
-      '<div class="c-info"><h3>'+escapeHtml(t.title)+'</h3>'+
-      (t.description ? '<p>'+escapeHtml(t.description)+'</p>' : '') +
+      '<div class="c-info"><h3>'+escapeHtml(title)+'</h3>'+
+      (desc ? '<p>'+escapeHtml(desc)+'</p>' : '') +
       (facts ? '<div class="c-facts">'+facts+'</div>' : '') +
-      '<a href="tur.html?slug='+encodeURIComponent(t.slug)+'" class="btn btn-line" style="align-self:flex-start;">Turu İncele →</a>'+
+      '<a href="tur.html?slug='+encodeURIComponent(tr.slug)+'" class="btn btn-line" style="align-self:flex-start;">'+t('shoots_view')+'</a>'+
       '</div></div>';
   }).join('');
 
@@ -394,9 +410,10 @@ async function loadVideos(){
     const vurl = publicVideoUrl(v.video_url);
     const thumb = publicImageUrl(v.thumbnail_url);
     const mime = videoMimeType(v.video_url);
+    const title = colValue(v, 'title', CUR_LANG);
     return '<div class="video-card">' +
       '<video controls preload="metadata"'+(thumb ? ' poster="'+thumb+'"' : '')+'><source src="'+vurl+'"'+(mime ? ' type="'+mime+'"' : '')+'>Tarayıcınız bu video formatını desteklemiyor.</video>' +
-      (v.title ? '<div class="v-title">'+escapeHtml(v.title)+'</div>' : '') +
+      (title ? '<div class="v-title">'+escapeHtml(title)+'</div>' : '') +
       '</div>';
   }).join('');
 }

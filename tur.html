@@ -34,7 +34,7 @@
     <div class="navlinks">
       <a href="index.html#turlar">Turlar</a>
       <a href="index.html#hakkimizda">Hakkımızda</a>
-      <a href="teklif.html" class="cta-link">Teklif Al</a>
+      <a href="teklif.html" class="cta-link">Rezervasyon</a>
     </div>
   </div>
 </header>
@@ -100,7 +100,7 @@ async function init(){
       '<h1>'+escapeHtml(t.title)+'</h1>'+
       (t.description ? '<div class="desc">'+escapeHtml(t.description)+'</div>' : '')+
       (specsHtml ? '<div class="p-specs">'+specsHtml+'</div>' : '')+
-      '<a href="teklif.html?tur='+encodeURIComponent(t.slug)+'" class="btn btn-solid">Bu Tur İçin Teklif İste →</a>'+
+      '<a href="teklif.html?tur='+encodeURIComponent(t.slug)+'" class="btn btn-solid">Bu Çekim İçin Rezervasyon Yap →</a>'+
     '</div>';
 }
 init();

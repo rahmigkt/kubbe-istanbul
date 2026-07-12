@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tur — KUBBE İSTANBUL</title>
+<title>Çekim — KUBBE İSTANBUL</title>
 <link rel="icon" href="assets/logo/mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css?v=3">
 <style>
   .product-page{padding:150px 0 100px;}
   .breadcrumb{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--label); margin-bottom:36px;}
@@ -32,18 +32,19 @@
   <div class="navbar">
     <a href="index.html" class="wordmark"><img src="assets/logo/mark.png" alt="Kubbe İstanbul"></a>
     <div class="navlinks">
-      <a href="index.html#turlar">Çekimler</a>
-      <a href="index.html#galeri">Galeri</a>
-      <a href="index.html#hakkimizda">Hakkımızda</a>
-      <a href="https://wa.me/905327207916" target="_blank" rel="noopener" style="color:#1a8a45;">WhatsApp</a>
-      <a href="teklif.html" class="cta-link">Rezervasyon</a>
+      <a href="index.html#turlar" data-i18n="nav_shoots">Çekimler</a>
+      <a href="index.html#galeri" data-i18n="nav_gallery">Galeri</a>
+      <a href="index.html#hakkimizda" data-i18n="nav_about">Hakkımızda</a>
+      <a href="https://wa.me/905327207916" target="_blank" rel="noopener" style="color:#1a8a45;" data-i18n="nav_whatsapp">WhatsApp</a>
+      <div class="lang-switch" id="langSwitch"></div>
+      <a href="teklif.html" class="cta-link" data-i18n="nav_reserve">Rezervasyon</a>
     </div>
   </div>
 </header>
 
 <section class="product-page">
   <div class="wrap">
-    <div class="breadcrumb" id="breadcrumb"><a href="index.html">Ana Sayfa</a> / <span id="bcCat"></span> / <span id="bcProduct"></span></div>
+    <div class="breadcrumb" id="breadcrumb"><a href="index.html" data-i18n="breadcrumb_home">Ana Sayfa</a> / <span id="bcCat"></span> / <span id="bcProduct"></span></div>
     <div class="product-layout" id="layout">
       <div class="product-image skeleton"></div>
       <div class="product-info">
@@ -57,41 +58,52 @@
 <footer>
   <div class="wrap foot-inner">
     <span class="foot-word">KUBBE İSTANBUL</span>
-    <span class="foot-meta">Teras Fotoğraf Deneyimi</span>
+    <span class="foot-meta" data-i18n="footer_tagline">Teras Fotoğraf Deneyimi</span>
     <span class="foot-meta">© 2026 Kubbe İstanbul</span>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/shared.js?v=2"></script>
+<script src="assets/i18n.js?v=1"></script>
 <script>
+const CUR_LANG = getLang();
+applyStaticTranslations();
+renderLangSwitcher('langSwitch');
+
 async function init(){
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug');
   const layout = document.getElementById('layout');
-  if (!slug) { layout.innerHTML = '<p>Çekim bulunamadı.</p>'; return; }
+  if (!slug) { layout.innerHTML = '<p>'+t('not_found_shoot')+'</p>'; return; }
 
-  const { data: t, error } = await sb.from('kubbe_tours').select('*, kubbe_categories(name, slug)').eq('slug', slug).maybeSingle();
-  if (error || !t) { layout.innerHTML = '<p>Bu çekim mevcut değil.</p>'; return; }
+  const { data: tourRow, error } = await sb.from('kubbe_tours').select('*, kubbe_categories(name, slug)').eq('slug', slug).maybeSingle();
+  if (error || !tourRow) { layout.innerHTML = '<p>'+t('not_exist_shoot')+'</p>'; return; }
 
-  document.title = t.title + ' — KUBBE İSTANBUL';
-  const cat = t.kubbe_categories;
+  const title = colValue(tourRow, 'title', CUR_LANG);
+  const description = colValue(tourRow, 'description', CUR_LANG);
+  const duration = colValue(tourRow, 'duration', CUR_LANG);
+  const groupSize = colValue(tourRow, 'group_size', CUR_LANG);
+
+  document.title = title + ' — KUBBE İSTANBUL';
+  const cat = tourRow.kubbe_categories;
   if (cat) {
-    document.getElementById('bcCat').innerHTML = '<a href="kategori.html?slug='+encodeURIComponent(cat.slug)+'" style="color:var(--coral);text-decoration:none;">'+escapeHtml(cat.name)+'</a>';
+    const catName = colValue(cat, 'name', CUR_LANG);
+    document.getElementById('bcCat').innerHTML = '<a href="kategori.html?slug='+encodeURIComponent(cat.slug)+'" style="color:var(--coral);text-decoration:none;">'+escapeHtml(catName)+'</a>';
   }
-  document.getElementById('bcProduct').textContent = t.title;
+  document.getElementById('bcProduct').textContent = title;
 
-  const img = publicImageUrl(t.image_url);
+  const img = publicImageUrl(tourRow.image_url);
   const media = img
-    ? '<img src="'+img+'" alt="'+escapeHtml(t.title)+'">'
+    ? '<img src="'+img+'" alt="'+escapeHtml(title)+'">'
     : categoryIcon(cat ? cat.slug : 'default');
 
   let specsHtml = '';
-  if (t.duration) specsHtml += '<div class="p-spec-row"><span class="k">Süre</span><span class="v">'+escapeHtml(t.duration)+'</span></div>';
-  if (t.group_size) specsHtml += '<div class="p-spec-row"><span class="k">Grup Büyüklüğü</span><span class="v">'+escapeHtml(t.group_size)+'</span></div>';
-  if (t.language) specsHtml += '<div class="p-spec-row"><span class="k">Dil</span><span class="v">'+escapeHtml(t.language)+'</span></div>';
-  if (Array.isArray(t.custom_fields)) {
-    t.custom_fields.forEach(f => {
+  if (duration) specsHtml += '<div class="p-spec-row"><span class="k">'+t('spec_duration')+'</span><span class="v">'+escapeHtml(duration)+'</span></div>';
+  if (groupSize) specsHtml += '<div class="p-spec-row"><span class="k">'+t('spec_group')+'</span><span class="v">'+escapeHtml(groupSize)+'</span></div>';
+  if (tourRow.language) specsHtml += '<div class="p-spec-row"><span class="k">'+t('spec_language')+'</span><span class="v">'+escapeHtml(tourRow.language)+'</span></div>';
+  if (Array.isArray(tourRow.custom_fields)) {
+    tourRow.custom_fields.forEach(f => {
       if (f && f.label) specsHtml += '<div class="p-spec-row"><span class="k">'+escapeHtml(f.label)+'</span><span class="v">'+escapeHtml(f.value||'')+'</span></div>';
     });
   }
@@ -99,10 +111,10 @@ async function init(){
   layout.innerHTML =
     '<div class="product-image">'+media+'</div>'+
     '<div class="product-info">'+
-      '<h1>'+escapeHtml(t.title)+'</h1>'+
-      (t.description ? '<div class="desc">'+escapeHtml(t.description)+'</div>' : '')+
+      '<h1>'+escapeHtml(title)+'</h1>'+
+      (description ? '<div class="desc">'+escapeHtml(description)+'</div>' : '')+
       (specsHtml ? '<div class="p-specs">'+specsHtml+'</div>' : '')+
-      '<a href="teklif.html?tur='+encodeURIComponent(t.slug)+'" class="btn btn-solid">Bu Çekim İçin Rezervasyon Yap →</a>'+
+      '<a href="teklif.html?tur='+encodeURIComponent(tourRow.slug)+'" class="btn btn-solid">'+t('reserve_this_shoot')+'</a>'+
     '</div>';
 }
 init();

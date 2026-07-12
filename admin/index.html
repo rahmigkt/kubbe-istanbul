@@ -199,9 +199,9 @@ const CONTENT_LABELS = {
   about_p1: 'Hakkımızda — 1. Paragraf',
   about_p2: 'Hakkımızda — 2. Paragraf',
   about_closing: 'Hakkımızda — Kapanış',
-  contact_phone: 'Telefon',
-  contact_email: 'E-posta',
-  contact_office: 'Ofis Konumu'
+  contact_phone: 'Telefon / WhatsApp',
+  instagram_handle: 'Instagram Kullanıcı Adı (@ olmadan)',
+  contact_office: 'Lokasyon Bilgisi'
 };
 async function loadContent(){
   const { data } = await sb.from('kubbe_site_content').select('*');

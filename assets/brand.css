@@ -74,6 +74,17 @@ footer{padding:48px 0; border-top:1px solid var(--hairline);}
 .skeleton{background:linear-gradient(90deg, var(--bg-panel-2) 25%, #e7ddc9 37%, var(--bg-panel-2) 63%); background-size:400% 100%; animation:shimmer 1.4s ease infinite;}
 @keyframes shimmer{0%{background-position:100% 0;}100%{background-position:0 0;}}
 
+.lang-switch{display:flex; gap:4px; align-items:center;}
+.lang-btn{background:none; border:1px solid var(--hairline-strong); color:var(--ink-dim); font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.04em; padding:6px 9px; border-radius:14px; cursor:pointer; transition:all .2s;}
+.lang-btn:hover{border-color:var(--teal); color:var(--teal);}
+.lang-btn.active{background:var(--teal); border-color:var(--teal); color:#fff;}
+
+html[dir="rtl"] body{font-family:'Noto Naskh Arabic', 'Nunito Sans', sans-serif;}
+html[dir="rtl"] .navlinks{flex-direction:row-reverse;}
+html[dir="rtl"] .eyebrow::before{order:2;}
+html[dir="rtl"] .loc-item, html[dir="rtl"] .c-fact, html[dir="rtl"] .p-spec-row{flex-direction:row-reverse; justify-content:flex-end;}
+html[dir="rtl"] .breadcrumb{direction:rtl;}
+
 @media (prefers-reduced-motion: reduce){
   * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }

@@ -84,7 +84,7 @@
   <div class="tabs">
     <button class="tab-btn active" data-tab="metinler">Site Metinleri</button>
     <button class="tab-btn" data-tab="kategoriler">Kategoriler</button>
-    <button class="tab-btn" data-tab="turlar">Turlar</button>
+    <button class="tab-btn" data-tab="turlar">Çekimler</button>
     <button class="tab-btn" data-tab="videolar">Videolar</button>
   </div>
 
@@ -135,7 +135,7 @@
   <div class="panel" id="panel-turlar">
     <div class="row-list" id="productList"></div>
     <div class="card">
-      <h2 id="prodFormTitle">Yeni Tur Ekle</h2>
+      <h2 id="prodFormTitle">Yeni Çekim Ekle</h2>
       <input type="hidden" id="prodId">
       <div class="grid2">
         <div class="field"><label>Başlık</label><input type="text" id="prodTitle" placeholder="örn. Sultanahmet Klasik Tur"></div>
@@ -154,7 +154,7 @@
         <label style="margin:0;">Ana sayfada "Öne Çıkanlar" büyük görsel alanında göster</label>
       </div>
       <div class="field"><label>Açıklama</label><textarea id="prodDesc" placeholder="Tur açıklaması"></textarea></div>
-      <div class="field"><label>Tur Görseli</label><input type="file" id="prodImage" accept="image/*"></div>
+      <div class="field"><label>Çekim Görseli</label><input type="file" id="prodImage" accept="image/*"></div>
       <div class="field">
         <label>Ek Özel Alanlar (istediğin kadar ekleyebilirsin)</label>
         <div id="customFieldsList" style="display:flex; flex-direction:column; gap:8px; margin-top:4px;"></div>
@@ -447,7 +447,7 @@ async function loadProducts(){
 }
 function editProduct(p){
   editingProdId = p.id;
-  document.getElementById('prodFormTitle').textContent = 'Turu Düzenle: ' + p.title;
+  document.getElementById('prodFormTitle').textContent = 'Çekimi Düzenle: ' + p.title;
   document.getElementById('prodId').value = p.id;
   document.getElementById('prodTitle').value = p.title;
   document.getElementById('prodSlug').value = p.slug;
@@ -464,7 +464,7 @@ function editProduct(p){
 document.getElementById('cancelProdBtn').onclick = () => resetProdForm();
 function resetProdForm(){
   editingProdId = null;
-  document.getElementById('prodFormTitle').textContent = 'Yeni Tur Ekle';
+  document.getElementById('prodFormTitle').textContent = 'Yeni Çekim Ekle';
   ['prodId','prodTitle','prodSlug','prodMaterial','prodTechnique','prodLanguage','prodDesc'].forEach(id => document.getElementById(id).value='');
   document.getElementById('prodFeatured').checked = false;
   document.getElementById('prodImage').value = '';
@@ -475,7 +475,7 @@ document.getElementById('prodTitle').addEventListener('input', (e) => {
   if (!editingProdId) document.getElementById('prodSlug').value = slugify(e.target.value);
 });
 async function deleteProduct(p){
-  if (!confirm('"'+p.title+'" turunu silmek istediğine emin misin?')) return;
+  if (!confirm('"'+p.title+'" çekimi silmek istediğine emin misin?')) return;
   await sb.from('kubbe_tours').delete().eq('id', p.id);
   loadProducts();
 }

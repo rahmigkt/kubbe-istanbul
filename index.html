@@ -267,6 +267,7 @@ async function loadSiteContent(){
   const card = document.getElementById('contactCard');
   card.innerHTML =
     (map.instagram_handle ? '<div class="row"><label>'+t('card_instagram')+'</label><a class="big-link" href="https://instagram.com/'+escapeHtml(map.instagram_handle)+'" target="_blank" rel="noopener">@'+escapeHtml(map.instagram_handle)+'</a></div>' : '') +
+    (map.tiktok_handle ? '<div class="row"><label>TikTok</label><a class="big-link" href="https://www.tiktok.com/@'+escapeHtml(map.tiktok_handle)+'" target="_blank" rel="noopener">@'+escapeHtml(map.tiktok_handle)+'</a></div>' : '') +
     (map.contact_phone && phoneDigits ? '<div class="row"><label>'+t('card_phone')+'</label><a class="big-link" href="tel:+90'+phoneDigits.slice(-10)+'">'+escapeHtml(map.contact_phone)+'</a></div>' : '') +
     (phoneDigits ? '<div class="row" style="margin-bottom:0;"><label>'+t('card_whatsapp')+'</label><a class="big-link" href="https://wa.me/90'+phoneDigits.slice(-10)+'" target="_blank" rel="noopener">'+t('card_whatsapp_send')+'</a></div>' : '') +
     '<div class="row" style="margin-bottom:0; margin-top:10px;"><a href="teklif.html" class="btn btn-solid" style="justify-content:center;">'+t('contact_reserve_btn')+'</a></div>';

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="../assets/logo/mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/brand.css?v=2">
 <style>
   body{padding-bottom:80px;}
@@ -106,7 +106,16 @@
     <div class="card">
       <h2 id="videoFormTitle">Yeni Video Ekle</h2>
       <input type="hidden" id="videoId">
-      <div class="field"><label>Video Başlığı</label><input type="text" id="videoTitle" placeholder="örn. Galata Terası - Uçan Elbise"></div>
+      <div class="field"><label>Video Başlığı (TR)</label><input type="text" id="videoTitle" placeholder="örn. Kırmızı Elbiseli Kadın"></div>
+      <details style="margin:8px 0 18px;">
+        <summary style="cursor:pointer; color:var(--label); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Diğer Diller (opsiyonel)</summary>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:14px;">
+          <div class="field"><label>Başlık (EN)</label><input type="text" id="videoTitleEn"></div>
+          <div class="field"><label>Başlık (FR)</label><input type="text" id="videoTitleFr"></div>
+          <div class="field"><label>Başlık (AR)</label><input type="text" id="videoTitleAr" dir="rtl"></div>
+          <div class="field"><label>Başlık (ES)</label><input type="text" id="videoTitleEs"></div>
+        </div>
+      </details>
       <div class="field"><label>Video Dosyası (mp4 önerilir, max 200MB)</label><input type="file" id="videoFile" accept="video/*"></div>
       <div class="field"><label>Kapak Görseli (opsiyonel)</label><input type="file" id="videoThumb" accept="image/*"></div>
       <button class="btn btn-solid" id="saveVideoBtn">Kaydet</button>
@@ -124,7 +133,16 @@
         <div class="field"><label>Ad</label><input type="text" id="catName" placeholder="örn. Boğaz Turu"></div>
         <div class="field"><label>Slug (URL)</label><input type="text" id="catSlug" placeholder="örn. bogaz-turu"></div>
       </div>
-      <div class="field"><label>Açıklama</label><textarea id="catDesc" placeholder="Kısa kategori açıklaması"></textarea></div>
+      <div class="field"><label>Açıklama (TR)</label><textarea id="catDesc" placeholder="Kısa kategori açıklaması"></textarea></div>
+      <details style="margin:8px 0 18px;">
+        <summary style="cursor:pointer; color:var(--label); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Diğer Diller (opsiyonel)</summary>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:14px;">
+          <div class="grid2"><div class="field"><label>Ad (EN)</label><input type="text" id="catNameEn"></div><div class="field"><label>Açıklama (EN)</label><input type="text" id="catDescEn"></div></div>
+          <div class="grid2"><div class="field"><label>Ad (FR)</label><input type="text" id="catNameFr"></div><div class="field"><label>Açıklama (FR)</label><input type="text" id="catDescFr"></div></div>
+          <div class="grid2"><div class="field"><label>Ad (AR)</label><input type="text" id="catNameAr" dir="rtl"></div><div class="field"><label>Açıklama (AR)</label><input type="text" id="catDescAr" dir="rtl"></div></div>
+          <div class="grid2"><div class="field"><label>Ad (ES)</label><input type="text" id="catNameEs"></div><div class="field"><label>Açıklama (ES)</label><input type="text" id="catDescEs"></div></div>
+        </div>
+      </details>
       <div class="field"><label>Örnek Görsel</label><input type="file" id="catImage" accept="image/*"></div>
       <button class="btn btn-solid" id="saveCatBtn">Kaydet</button>
       <button class="btn btn-line" id="cancelCatBtn" style="display:none;">İptal</button>
@@ -153,7 +171,20 @@
         <input type="checkbox" id="prodFeatured" style="width:16px; height:16px;">
         <label style="margin:0;">Ana sayfada "Öne Çıkanlar" büyük görsel alanında göster</label>
       </div>
-      <div class="field"><label>Açıklama</label><textarea id="prodDesc" placeholder="Tur açıklaması"></textarea></div>
+      <div class="field"><label>Açıklama (TR)</label><textarea id="prodDesc" placeholder="Çekim açıklaması"></textarea></div>
+      <details style="margin:8px 0 18px;">
+        <summary style="cursor:pointer; color:var(--label); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Diğer Diller (opsiyonel)</summary>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:14px;">
+          <div class="grid2"><div class="field"><label>Başlık (EN)</label><input type="text" id="prodTitleEn"></div><div class="field"><label>Süre (EN)</label><input type="text" id="prodDurationEn"></div></div>
+          <div class="field"><label>Açıklama (EN)</label><input type="text" id="prodDescEn"></div>
+          <div class="grid2"><div class="field"><label>Başlık (FR)</label><input type="text" id="prodTitleFr"></div><div class="field"><label>Süre (FR)</label><input type="text" id="prodDurationFr"></div></div>
+          <div class="field"><label>Açıklama (FR)</label><input type="text" id="prodDescFr"></div>
+          <div class="grid2"><div class="field"><label>Başlık (AR)</label><input type="text" id="prodTitleAr" dir="rtl"></div><div class="field"><label>Süre (AR)</label><input type="text" id="prodDurationAr" dir="rtl"></div></div>
+          <div class="field"><label>Açıklama (AR)</label><input type="text" id="prodDescAr" dir="rtl"></div>
+          <div class="grid2"><div class="field"><label>Başlık (ES)</label><input type="text" id="prodTitleEs"></div><div class="field"><label>Süre (ES)</label><input type="text" id="prodDurationEs"></div></div>
+          <div class="field"><label>Açıklama (ES)</label><input type="text" id="prodDescEs"></div>
+        </div>
+      </details>
       <div class="field"><label>Çekim Görseli</label><input type="file" id="prodImage" accept="image/*"></div>
       <div class="field">
         <label>Ek Özel Alanlar (istediğin kadar ekleyebilirsin)</label>
@@ -214,10 +245,26 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 // ---------- SİTE METİNLERİ ----------
 const CONTENT_LABELS = {
-  hero_tagline: 'Hero Başlık',
-  about_p1: 'Hakkımızda — 1. Paragraf',
-  about_p2: 'Hakkımızda — 2. Paragraf',
-  about_closing: 'Hakkımızda — Kapanış',
+  hero_tagline: 'Hero Başlık (TR)',
+  hero_tagline_en: 'Hero Başlık (EN)',
+  hero_tagline_fr: 'Hero Başlık (FR)',
+  hero_tagline_ar: 'Hero Başlık (AR)',
+  hero_tagline_es: 'Hero Başlık (ES)',
+  about_p1: 'Hakkımızda 1. Paragraf (TR)',
+  about_p1_en: 'Hakkımızda 1. Paragraf (EN)',
+  about_p1_fr: 'Hakkımızda 1. Paragraf (FR)',
+  about_p1_ar: 'Hakkımızda 1. Paragraf (AR)',
+  about_p1_es: 'Hakkımızda 1. Paragraf (ES)',
+  about_p2: 'Hakkımızda 2. Paragraf (TR)',
+  about_p2_en: 'Hakkımızda 2. Paragraf (EN)',
+  about_p2_fr: 'Hakkımızda 2. Paragraf (FR)',
+  about_p2_ar: 'Hakkımızda 2. Paragraf (AR)',
+  about_p2_es: 'Hakkımızda 2. Paragraf (ES)',
+  about_closing: 'Hakkımızda Kapanış (TR)',
+  about_closing_en: 'Hakkımızda Kapanış (EN)',
+  about_closing_fr: 'Hakkımızda Kapanış (FR)',
+  about_closing_ar: 'Hakkımızda Kapanış (AR)',
+  about_closing_es: 'Hakkımızda Kapanış (ES)',
   contact_phone: 'Telefon / WhatsApp',
   instagram_handle: 'Instagram Kullanıcı Adı (@ olmadan)',
   contact_office: 'Lokasyon Bilgisi'
@@ -309,13 +356,19 @@ document.getElementById('saveVideoBtn').onclick = async () => {
     if (!tErr) thumbnail_url = tpath;
   }
 
-  const payload = { title, video_url: path };
+  const payload = {
+    title, video_url: path,
+    title_en: document.getElementById('videoTitleEn').value,
+    title_fr: document.getElementById('videoTitleFr').value,
+    title_ar: document.getElementById('videoTitleAr').value,
+    title_es: document.getElementById('videoTitleEs').value
+  };
   if (thumbnail_url) payload.thumbnail_url = thumbnail_url;
 
   const { error } = await sb.from('kubbe_videos').insert(payload);
   if (error) { msg.textContent = 'Hata: ' + error.message; msg.className='msg err'; return; }
   msg.textContent = 'Kaydedildi ✓'; msg.className='msg ok';
-  document.getElementById('videoTitle').value = '';
+  ['videoTitle','videoTitleEn','videoTitleFr','videoTitleAr','videoTitleEs'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('videoFile').value = '';
   document.getElementById('videoThumb').value = '';
   loadVideos();
@@ -351,6 +404,14 @@ function editCategory(cat){
   document.getElementById('catName').value = cat.name;
   document.getElementById('catSlug').value = cat.slug;
   document.getElementById('catDesc').value = cat.description || '';
+  document.getElementById('catNameEn').value = cat.name_en || '';
+  document.getElementById('catDescEn').value = cat.description_en || '';
+  document.getElementById('catNameFr').value = cat.name_fr || '';
+  document.getElementById('catDescFr').value = cat.description_fr || '';
+  document.getElementById('catNameAr').value = cat.name_ar || '';
+  document.getElementById('catDescAr').value = cat.description_ar || '';
+  document.getElementById('catNameEs').value = cat.name_es || '';
+  document.getElementById('catDescEs').value = cat.description_es || '';
   document.getElementById('cancelCatBtn').style.display = 'inline-flex';
 }
 document.getElementById('cancelCatBtn').onclick = () => resetCatForm();
@@ -361,6 +422,7 @@ function resetCatForm(){
   document.getElementById('catName').value = '';
   document.getElementById('catSlug').value = '';
   document.getElementById('catDesc').value = '';
+  ['catNameEn','catDescEn','catNameFr','catDescFr','catNameAr','catDescAr','catNameEs','catDescEs'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('catImage').value = '';
   document.getElementById('cancelCatBtn').style.display = 'none';
 }
@@ -388,7 +450,13 @@ document.getElementById('saveCatBtn').onclick = async () => {
     sample_image_url = path;
   }
 
-  const payload = { name, slug, description: document.getElementById('catDesc').value };
+  const payload = {
+    name, slug, description: document.getElementById('catDesc').value,
+    name_en: document.getElementById('catNameEn').value, description_en: document.getElementById('catDescEn').value,
+    name_fr: document.getElementById('catNameFr').value, description_fr: document.getElementById('catDescFr').value,
+    name_ar: document.getElementById('catNameAr').value, description_ar: document.getElementById('catDescAr').value,
+    name_es: document.getElementById('catNameEs').value, description_es: document.getElementById('catDescEs').value
+  };
   if (sample_image_url) payload.sample_image_url = sample_image_url;
 
   let error;
@@ -457,6 +525,18 @@ function editProduct(p){
   document.getElementById('prodLanguage').value = p.language || '';
   document.getElementById('prodFeatured').checked = !!p.is_featured;
   document.getElementById('prodDesc').value = p.description || '';
+  document.getElementById('prodTitleEn').value = p.title_en || '';
+  document.getElementById('prodDescEn').value = p.description_en || '';
+  document.getElementById('prodDurationEn').value = p.duration_en || '';
+  document.getElementById('prodTitleFr').value = p.title_fr || '';
+  document.getElementById('prodDescFr').value = p.description_fr || '';
+  document.getElementById('prodDurationFr').value = p.duration_fr || '';
+  document.getElementById('prodTitleAr').value = p.title_ar || '';
+  document.getElementById('prodDescAr').value = p.description_ar || '';
+  document.getElementById('prodDurationAr').value = p.duration_ar || '';
+  document.getElementById('prodTitleEs').value = p.title_es || '';
+  document.getElementById('prodDescEs').value = p.description_es || '';
+  document.getElementById('prodDurationEs').value = p.duration_es || '';
   clearCustomFieldsForm();
   (Array.isArray(p.custom_fields) ? p.custom_fields : []).forEach(f => addCustomFieldRow(f.label, f.value));
   document.getElementById('cancelProdBtn').style.display = 'inline-flex';
@@ -465,7 +545,9 @@ document.getElementById('cancelProdBtn').onclick = () => resetProdForm();
 function resetProdForm(){
   editingProdId = null;
   document.getElementById('prodFormTitle').textContent = 'Yeni Çekim Ekle';
-  ['prodId','prodTitle','prodSlug','prodMaterial','prodTechnique','prodLanguage','prodDesc'].forEach(id => document.getElementById(id).value='');
+  ['prodId','prodTitle','prodSlug','prodMaterial','prodTechnique','prodLanguage','prodDesc',
+   'prodTitleEn','prodDescEn','prodDurationEn','prodTitleFr','prodDescFr','prodDurationFr',
+   'prodTitleAr','prodDescAr','prodDurationAr','prodTitleEs','prodDescEs','prodDurationEs'].forEach(id => document.getElementById(id).value='');
   document.getElementById('prodFeatured').checked = false;
   document.getElementById('prodImage').value = '';
   clearCustomFieldsForm();
@@ -503,7 +585,11 @@ document.getElementById('saveProdBtn').onclick = async () => {
     language: document.getElementById('prodLanguage').value,
     description: document.getElementById('prodDesc').value,
     is_featured: document.getElementById('prodFeatured').checked,
-    custom_fields: getCustomFieldsFromForm()
+    custom_fields: getCustomFieldsFromForm(),
+    title_en: document.getElementById('prodTitleEn').value, description_en: document.getElementById('prodDescEn').value, duration_en: document.getElementById('prodDurationEn').value,
+    title_fr: document.getElementById('prodTitleFr').value, description_fr: document.getElementById('prodDescFr').value, duration_fr: document.getElementById('prodDurationFr').value,
+    title_ar: document.getElementById('prodTitleAr').value, description_ar: document.getElementById('prodDescAr').value, duration_ar: document.getElementById('prodDurationAr').value,
+    title_es: document.getElementById('prodTitleEs').value, description_es: document.getElementById('prodDescEs').value, duration_es: document.getElementById('prodDurationEs').value
   };
   if (image_url) payload.image_url = image_url;
 

@@ -35,7 +35,7 @@
   <div class="navbar">
     <a href="index.html" class="wordmark"><img src="assets/logo/mark.png" alt="Kubbe İstanbul"></a>
     <div class="navlinks">
-      <a href="index.html#turlar">Turlar</a>
+      <a href="index.html#turlar">Çekimler</a>
       <a href="index.html#hakkimizda">Hakkımızda</a>
       <a href="teklif.html" class="cta-link">Rezervasyon</a>
     </div>
@@ -62,7 +62,10 @@
         </div>
         <div class="field"><label>Mesajınız</label><textarea name="mesaj" placeholder="Özel istekleriniz, ilgi alanlarınız..."></textarea></div>
         <input type="hidden" name="hedef_email" id="hedefEmail">
-        <button type="submit" class="btn btn-solid">Rezervasyon Talebi Gönder →</button>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <button type="submit" class="btn btn-solid">Rezervasyon Talebi Gönder →</button>
+          <button type="button" id="whatsappBtn" class="btn btn-line" style="border-color:#25D366; color:#1a8a45;">WhatsApp ile Gönder →</button>
+        </div>
         <div class="form-msg" id="formMsg"></div>
       </form>
     </div>
@@ -72,7 +75,7 @@
 <footer>
   <div class="wrap foot-inner">
     <span class="foot-word">KUBBE İSTANBUL</span>
-    <span class="foot-meta">Özel Rehberli Turlar</span>
+    <span class="foot-meta">Teras Fotoğraf Deneyimi</span>
     <span class="foot-meta">© 2026 Kubbe İstanbul</span>
   </div>
 </footer>
@@ -83,6 +86,9 @@
 async function init(){
   const { data: emailRow } = await sb.from('kubbe_site_content').select('value').eq('key','contact_email').maybeSingle();
   document.getElementById('hedefEmail').value = (emailRow && emailRow.value) || '';
+
+  const { data: phoneRow } = await sb.from('kubbe_site_content').select('value').eq('key','contact_phone').maybeSingle();
+  window.kubbePhoneDigits = ((phoneRow && phoneRow.value) || '').replace(/\D/g,'').slice(-10);
 
   const { data: tours } = await sb.from('kubbe_tours').select('slug, title').order('sort_order');
   const select = document.getElementById('turSelect');
@@ -99,6 +105,36 @@ async function init(){
   }
 }
 init();
+
+document.getElementById('whatsappBtn').addEventListener('click', function(){
+  const form = document.getElementById('teklifForm');
+  const fd = new FormData(form);
+  const adSoyad = (fd.get('ad_soyad') || '').toString().trim();
+  const telefon = (fd.get('telefon') || '').toString().trim();
+  const tarih = (fd.get('tarih') || '').toString().trim();
+  const tur = (fd.get('tur') || '').toString().trim();
+  const kisi = (fd.get('kisi_sayisi') || '').toString().trim();
+  const mesaj = (fd.get('mesaj') || '').toString().trim();
+
+  if (!adSoyad) {
+    const msg = document.getElementById('formMsg');
+    msg.textContent = 'WhatsApp ile göndermek için en azından Ad Soyad alanını doldurun.';
+    msg.className = 'form-msg err';
+    return;
+  }
+
+  let text = 'Merhaba, Kubbe İstanbul üzerinden rezervasyon talebim var:\n';
+  text += 'Ad Soyad: ' + adSoyad + '\n';
+  if (telefon) text += 'Telefon: ' + telefon + '\n';
+  if (tarih) text += 'Tercih Edilen Tarih: ' + tarih + '\n';
+  if (tur) text += 'İlgilenilen Çekim: ' + tur + '\n';
+  if (kisi) text += 'Kişi Sayısı: ' + kisi + '\n';
+  if (mesaj) text += 'Mesaj: ' + mesaj + '\n';
+
+  const phone = window.kubbePhoneDigits;
+  const url = 'https://wa.me/' + (phone ? '90' + phone : '') + '?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+});
 
 document.getElementById('teklifForm').addEventListener('submit', async function(e){
   e.preventDefault();

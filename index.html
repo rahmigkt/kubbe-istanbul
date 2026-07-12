@@ -374,6 +374,12 @@ function restartTimer(){
   }
 }
 
+function videoMimeType(url){
+  const ext = (url.split('.').pop() || '').toLowerCase().split('?')[0];
+  const map = { mp4:'video/mp4', mov:'video/quicktime', webm:'video/webm', ogg:'video/ogg', m4v:'video/mp4' };
+  return map[ext] || '';
+}
+
 async function loadVideos(){
   const grid = document.getElementById('videoGrid');
   const section = document.getElementById('videolar');
@@ -385,8 +391,9 @@ async function loadVideos(){
   grid.innerHTML = data.map(v => {
     const vurl = publicVideoUrl(v.video_url);
     const thumb = publicImageUrl(v.thumbnail_url);
+    const mime = videoMimeType(v.video_url);
     return '<div class="video-card">' +
-      '<video controls preload="metadata"'+(thumb ? ' poster="'+thumb+'"' : '')+'><source src="'+vurl+'" type="video/mp4"></video>' +
+      '<video controls preload="metadata"'+(thumb ? ' poster="'+thumb+'"' : '')+'><source src="'+vurl+'"'+(mime ? ' type="'+mime+'"' : '')+'>Taray\u0131c\u0131n\u0131z bu video format\u0131n\u0131 desteklemiyor.</video>' +
       (v.title ? '<div class="v-title">'+escapeHtml(v.title)+'</div>' : '') +
       '</div>';
   }).join('');

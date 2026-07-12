@@ -85,14 +85,33 @@
     <button class="tab-btn active" data-tab="metinler">Site Metinleri</button>
     <button class="tab-btn" data-tab="kategoriler">Kategoriler</button>
     <button class="tab-btn" data-tab="turlar">Turlar</button>
+    <button class="tab-btn" data-tab="videolar">Videolar</button>
   </div>
 
   <div class="panel active" id="panel-metinler">
     <div class="card">
       <h2>Ana Sayfa Metinleri</h2>
       <div id="contentFields"></div>
+      <div class="field">
+        <label>Hero Arkaplan Görseli (tam ekran, ana sayfanın en üstü)</label>
+        <input type="file" id="heroImageFile" accept="image/*">
+      </div>
       <button class="btn btn-solid" id="saveContentBtn" style="margin-top:6px;">Metinleri Kaydet</button>
       <div class="msg" id="contentMsg"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-videolar">
+    <div class="row-list" id="videoList"></div>
+    <div class="card">
+      <h2 id="videoFormTitle">Yeni Video Ekle</h2>
+      <input type="hidden" id="videoId">
+      <div class="field"><label>Video Başlığı</label><input type="text" id="videoTitle" placeholder="örn. Galata Terası - Uçan Elbise"></div>
+      <div class="field"><label>Video Dosyası (mp4 önerilir, max 200MB)</label><input type="file" id="videoFile" accept="video/*"></div>
+      <div class="field"><label>Kapak Görseli (opsiyonel)</label><input type="file" id="videoThumb" accept="image/*"></div>
+      <button class="btn btn-solid" id="saveVideoBtn">Kaydet</button>
+      <button class="btn btn-line" id="cancelVideoBtn" style="display:none;">İptal</button>
+      <div class="msg" id="videoMsg"></div>
     </div>
   </div>
 
@@ -169,7 +188,7 @@ function showLogin(){ loginScreen.style.display='block'; dashboard.style.display
 function showDashboard(session){
   loginScreen.style.display='none'; dashboard.style.display='block'; logoutWrap.style.display='block';
   document.getElementById('whoAmI').textContent = session.user.email + ' olarak giriş yapıldı';
-  loadContent(); loadCategories(); loadProducts();
+  loadContent(); loadCategories(); loadProducts(); loadVideos();
 }
 
 document.getElementById('loginBtn').onclick = async () => {
@@ -233,9 +252,73 @@ document.getElementById('saveContentBtn').onclick = async () => {
   msg.textContent = 'Kaydediliyor…'; msg.className='msg';
   const inputs = document.querySelectorAll('#contentFields [data-key]');
   const rows = Array.from(inputs).map(el => ({ key: el.dataset.key, value: el.value }));
+
+  const heroFile = document.getElementById('heroImageFile').files[0];
+  if (heroFile) {
+    const path = 'hero/hero-' + Date.now() + '.' + heroFile.name.split('.').pop();
+    const { error: upErr } = await sb.storage.from('kubbe-images').upload(path, heroFile, { upsert: true });
+    if (upErr) { msg.textContent = 'Hero görseli yüklenemedi: ' + upErr.message; msg.className='msg err'; return; }
+    rows.push({ key: 'hero_image', value: path });
+  }
+
   const { error } = await sb.from('kubbe_site_content').upsert(rows);
   if (error) { msg.textContent = 'Hata: ' + error.message; msg.className='msg err'; return; }
   msg.textContent = 'Kaydedildi ✓'; msg.className='msg ok';
+  document.getElementById('heroImageFile').value = '';
+};
+
+// ---------- VİDEOLAR ----------
+let editingVideoId = null;
+async function loadVideos(){
+  const { data } = await sb.from('kubbe_videos').select('*').order('sort_order');
+  const list = document.getElementById('videoList');
+  list.innerHTML = '';
+  (data||[]).forEach(v => {
+    const thumb = publicImageUrl(v.thumbnail_url);
+    const item = document.createElement('div');
+    item.className = 'row-item';
+    item.innerHTML =
+      (thumb ? '<img class="thumb" src="'+thumb+'">' : '<div class="thumb"></div>') +
+      '<div class="info"><div class="t">'+escapeHtml(v.title || 'İsimsiz video')+'</div><div class="s">'+escapeHtml(v.video_url)+'</div></div>' +
+      '<div class="acts"><button data-act="del" class="danger">Sil</button></div>';
+    item.querySelector('[data-act=del]').onclick = () => deleteVideo(v);
+    list.appendChild(item);
+  });
+}
+async function deleteVideo(v){
+  if (!confirm('Bu videoyu silmek istediğine emin misin?')) return;
+  await sb.from('kubbe_videos').delete().eq('id', v.id);
+  loadVideos();
+}
+document.getElementById('saveVideoBtn').onclick = async () => {
+  const msg = document.getElementById('videoMsg');
+  const title = document.getElementById('videoTitle').value.trim();
+  const file = document.getElementById('videoFile').files[0];
+  if (!file) { msg.textContent = 'Video dosyası seçmelisin'; msg.className='msg err'; return; }
+  msg.textContent = 'Yükleniyor… (büyük dosyalarda biraz sürebilir)'; msg.className='msg';
+
+  const path = 'videos/' + Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g,'');
+  const { error: upErr } = await sb.storage.from('kubbe-videos').upload(path, file);
+  if (upErr) { msg.textContent = 'Video yüklenemedi: ' + upErr.message; msg.className='msg err'; return; }
+
+  let thumbnail_url = undefined;
+  const thumbFile = document.getElementById('videoThumb').files[0];
+  if (thumbFile) {
+    const tpath = 'video-thumbs/' + Date.now() + '.' + thumbFile.name.split('.').pop();
+    const { error: tErr } = await sb.storage.from('kubbe-images').upload(tpath, thumbFile, { upsert: true });
+    if (!tErr) thumbnail_url = tpath;
+  }
+
+  const payload = { title, video_url: path };
+  if (thumbnail_url) payload.thumbnail_url = thumbnail_url;
+
+  const { error } = await sb.from('kubbe_videos').insert(payload);
+  if (error) { msg.textContent = 'Hata: ' + error.message; msg.className='msg err'; return; }
+  msg.textContent = 'Kaydedildi ✓'; msg.className='msg ok';
+  document.getElementById('videoTitle').value = '';
+  document.getElementById('videoFile').value = '';
+  document.getElementById('videoThumb').value = '';
+  loadVideos();
 };
 
 // ---------- KATEGORİLER ----------

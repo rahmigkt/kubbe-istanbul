@@ -393,7 +393,7 @@ async function loadVideos(){
     const thumb = publicImageUrl(v.thumbnail_url);
     const mime = videoMimeType(v.video_url);
     return '<div class="video-card">' +
-      '<video controls preload="metadata"'+(thumb ? ' poster="'+thumb+'"' : '')+'><source src="'+vurl+'"'+(mime ? ' type="'+mime+'"' : '')+'>Taray\u0131c\u0131n\u0131z bu video format\u0131n\u0131 desteklemiyor.</video>' +
+      '<video controls preload="metadata"'+(thumb ? ' poster="'+thumb+'"' : '')+'><source src="'+vurl+'"'+(mime ? ' type="'+mime+'"' : '')+'>Tarayıcınız bu video formatını desteklemiyor.</video>' +
       (v.title ? '<div class="v-title">'+escapeHtml(v.title)+'</div>' : '') +
       '</div>';
   }).join('');

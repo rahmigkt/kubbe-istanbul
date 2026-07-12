@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brand.css?v=2">
 <style>
   .hero{position:relative; min-height:100vh; display:flex; align-items:flex-end; overflow:hidden; padding-top:100px;}
   .hero-bg{position:absolute; inset:0; z-index:0; background:linear-gradient(135deg, var(--teal-light), var(--teal-deep)); background-size:cover; background-position:center;}
@@ -223,7 +223,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/shared.js"></script>
+<script src="assets/shared.js?v=2"></script>
 <script>
 async function loadSiteContent(){
   const { data, error } = await sb.from('kubbe_site_content').select('key,value');

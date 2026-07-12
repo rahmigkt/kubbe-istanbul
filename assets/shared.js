@@ -20,6 +20,13 @@ function publicImageUrl(path) {
   return data.publicUrl;
 }
 
+function publicVideoUrl(path) {
+  if (!path) return null;
+  if (path.startsWith("http")) return path;
+  const { data } = sb.storage.from("kubbe-videos").getPublicUrl(path);
+  return data.publicUrl;
+}
+
 // Kategori ikonları (örnek görsel yoksa yedek olarak kullanılır)
 const CATEGORY_ICONS = {
   "tarihi-yarimada": '<svg viewBox="0 0 60 60"><path d="M12 50 L12 30 A18 18 0 0 1 48 30 L48 50 Z"/><line x1="8" y1="50" x2="52" y2="50"/><line x1="30" y1="12" x2="30" y2="20"/><circle cx="30" cy="9" r="2"/></svg>',

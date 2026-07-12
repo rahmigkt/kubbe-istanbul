@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tur — KUBBE İSTANBUL</title>
+<link rel="icon" href="assets/logo/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mulish:wght@400;500;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css">
+<style>
+  .product-page{padding:150px 0 100px;}
+  .breadcrumb{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--label); margin-bottom:36px;}
+  .breadcrumb a{color:var(--gold-light); text-decoration:none;}
+  .product-layout{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:start;}
+  .product-image{aspect-ratio:1/1; background:var(--bg-panel); border:1px solid var(--hairline); overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  .product-image img{width:100%; height:100%; object-fit:cover;}
+  .product-image svg{width:35%; height:35%; stroke:var(--teal); fill:none; stroke-width:1.2;}
+  .product-info h1{font-family:'Cormorant Garamond', serif; font-weight:600; font-style:italic; font-size:clamp(30px,4vw,44px); margin:0 0 20px;}
+  .product-info .desc{color:var(--ink-dim); font-size:17px; line-height:1.75; margin-bottom:36px;}
+  .p-specs{border-top:1px solid var(--hairline); margin-bottom:36px;}
+  .p-spec-row{display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--hairline); font-size:14px;}
+  .p-spec-row .k{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--label); font-size:12px;}
+  .p-spec-row .v{color:var(--ink);}
+  @media (max-width:860px){ .product-layout{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <a href="index.html" class="wordmark"><img src="assets/logo/mark.png" alt="Kubbe İstanbul" onerror="this.style.display='none'"> KUBBE İSTANBUL</a>
+    <div class="navlinks">
+      <a href="index.html#turlar">Turlar</a>
+      <a href="index.html#hakkimizda">Hakkımızda</a>
+      <a href="teklif.html" class="cta-link">Teklif Al</a>
+    </div>
+  </div>
+</header>
+
+<section class="product-page">
+  <div class="wrap">
+    <div class="breadcrumb" id="breadcrumb"><a href="index.html">Ana Sayfa</a> / <span id="bcCat"></span> / <span id="bcProduct"></span></div>
+    <div class="product-layout" id="layout">
+      <div class="product-image skeleton"></div>
+      <div class="product-info">
+        <div class="skeleton" style="height:40px;width:70%;margin-bottom:20px;"></div>
+        <div class="skeleton" style="height:100px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span class="foot-word">KUBBE İSTANBUL</span>
+    <span class="foot-meta">Özel Rehberli Turlar</span>
+    <span class="foot-meta">© 2026 Kubbe İstanbul</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/shared.js"></script>
+<script>
+async function init(){
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  const layout = document.getElementById('layout');
+  if (!slug) { layout.innerHTML = '<p>Tur bulunamadı.</p>'; return; }
+
+  const { data: t, error } = await sb.from('kubbe_tours').select('*, kubbe_categories(name, slug)').eq('slug', slug).maybeSingle();
+  if (error || !t) { layout.innerHTML = '<p>Bu tur mevcut değil.</p>'; return; }
+
+  document.title = t.title + ' — KUBBE İSTANBUL';
+  const cat = t.kubbe_categories;
+  if (cat) {
+    document.getElementById('bcCat').innerHTML = '<a href="kategori.html?slug='+encodeURIComponent(cat.slug)+'" style="color:var(--gold-light);text-decoration:none;">'+escapeHtml(cat.name)+'</a>';
+  }
+  document.getElementById('bcProduct').textContent = t.title;
+
+  const img = publicImageUrl(t.image_url);
+  const media = img
+    ? '<img src="'+img+'" alt="'+escapeHtml(t.title)+'">'
+    : categoryIcon(cat ? cat.slug : 'default');
+
+  let specsHtml = '';
+  if (t.duration) specsHtml += '<div class="p-spec-row"><span class="k">Süre</span><span class="v">'+escapeHtml(t.duration)+'</span></div>';
+  if (t.group_size) specsHtml += '<div class="p-spec-row"><span class="k">Grup Büyüklüğü</span><span class="v">'+escapeHtml(t.group_size)+'</span></div>';
+  if (t.language) specsHtml += '<div class="p-spec-row"><span class="k">Dil</span><span class="v">'+escapeHtml(t.language)+'</span></div>';
+  if (Array.isArray(t.custom_fields)) {
+    t.custom_fields.forEach(f => {
+      if (f && f.label) specsHtml += '<div class="p-spec-row"><span class="k">'+escapeHtml(f.label)+'</span><span class="v">'+escapeHtml(f.value||'')+'</span></div>';
+    });
+  }
+
+  layout.innerHTML =
+    '<div class="product-image">'+media+'</div>'+
+    '<div class="product-info">'+
+      '<h1>'+escapeHtml(t.title)+'</h1>'+
+      (t.description ? '<div class="desc">'+escapeHtml(t.description)+'</div>' : '')+
+      (specsHtml ? '<div class="p-specs">'+specsHtml+'</div>' : '')+
+      '<a href="teklif.html?tur='+encodeURIComponent(t.slug)+'" class="btn btn-solid">Bu Tur İçin Teklif İste →</a>'+
+    '</div>';
+}
+init();
+</script>
+</body>
+</html>

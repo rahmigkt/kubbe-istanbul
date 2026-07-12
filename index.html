@@ -104,9 +104,9 @@
   <div class="navbar">
     <a href="index.html" class="wordmark"><img src="assets/logo/mark.png" alt="Kubbe İstanbul"></a>
     <div class="navlinks">
-      <a href="#turlar">Turlar</a>
+      <a href="#turlar">Çekimler</a>
       <a href="#hakkimizda">Hakkımızda</a>
-      <a href="teklif.html" class="cta-link">Teklif Al</a>
+      <a href="teklif.html" class="cta-link">Rezervasyon</a>
     </div>
   </div>
 </header>
@@ -115,12 +115,12 @@
   <div class="hero-bg-fade"></div>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Özel Rehberli İstanbul Turları</span>
+      <span class="eyebrow">Teras Fotoğraf Deneyimi</span>
       <h1 id="heroTagline">İstanbul'u, Kendi Hikayesinden Dinleyin</h1>
-      <p class="tagline">Küçük gruplar, uzman rehberler, kişiye özel programlar — İstanbul'u aceleyle değil, gerçekten tanıyarak keşfedin.</p>
+      <p class="tagline">Galata Kulesi ve Süleymaniye manzaralı özel teraslarımızda, uçuşan elbiseler ve martılar eşliğinde unutulmaz bir kare.</p>
       <div class="hero-ctas">
-        <a href="#turlar" class="btn btn-solid">Turları Keşfet →</a>
-        <a href="teklif.html" class="btn btn-line">Teklif Al</a>
+        <a href="#turlar" class="btn btn-solid">Çekimleri Keşfet →</a>
+        <a href="teklif.html" class="btn btn-line">Rezervasyon Al</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -148,18 +148,18 @@
 
 <section class="specs-section">
   <div class="specs">
-    <div class="spec-item"><span class="spec-label">Grup Büyüklüğü</span><span class="spec-value">Özel / Küçük Gruplar</span></div>
-    <div class="spec-item"><span class="spec-label">Dil</span><span class="spec-value">Türkçe · İngilizce</span></div>
-    <div class="spec-item"><span class="spec-label">Rehberlik</span><span class="spec-value">Lisanslı Profesyonel</span></div>
-    <div class="spec-item"><span class="spec-label">Program</span><span class="spec-value">Talebe Göre Esnek</span></div>
+    <div class="spec-item"><span class="spec-label">Lokasyon</span><span class="spec-value">Galata · Süleymaniye</span></div>
+    <div class="spec-item"><span class="spec-label">Kostüm</span><span class="spec-value">Stüdyodan Temin Edilir</span></div>
+    <div class="spec-item"><span class="spec-label">Süre</span><span class="spec-value">30-60 Dakika</span></div>
+    <div class="spec-item"><span class="spec-label">Rezervasyon</span><span class="spec-value">Instagram · WhatsApp</span></div>
   </div>
 </section>
 
 <section id="turlar">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Turlar</span>
-      <h2>Şehri katman katman keşfedin</h2>
+      <span class="eyebrow">Çekimler</span>
+      <h2>İki teras, sayısız kare</h2>
     </div>
     <div class="collection-grid" id="categoryGrid">
       <div class="col-card"><div class="img-wrap skeleton"></div><div class="col-body"><div class="skeleton" style="height:20px;width:60%"></div></div></div>
@@ -229,10 +229,10 @@ async function loadSiteContent(){
   const phoneDigits = (map.contact_phone||'').replace(/\D/g,'');
   const card = document.getElementById('contactCard');
   card.innerHTML =
+    (map.instagram_handle ? '<div class="row"><label>Instagram</label><a class="big-link" href="https://instagram.com/'+escapeHtml(map.instagram_handle)+'" target="_blank" rel="noopener">@'+escapeHtml(map.instagram_handle)+'</a></div>' : '') +
     (map.contact_phone && phoneDigits ? '<div class="row"><label>Telefon</label><a class="big-link" href="tel:+90'+phoneDigits.slice(-10)+'">'+escapeHtml(map.contact_phone)+'</a></div>' : '') +
-    (map.contact_email ? '<div class="row"><label>E-posta</label><a class="big-link" href="mailto:'+escapeHtml(map.contact_email)+'">'+escapeHtml(map.contact_email)+'</a></div>' : '') +
     (phoneDigits ? '<div class="row" style="margin-bottom:0;"><label>WhatsApp</label><a class="big-link" href="https://wa.me/90'+phoneDigits.slice(-10)+'" target="_blank" rel="noopener">Mesaj Gönder →</a></div>' : '') +
-    '<div class="row" style="margin-bottom:0; margin-top:10px;"><a href="teklif.html" class="btn btn-solid" style="justify-content:center;">Teklif Formu →</a></div>';
+    '<div class="row" style="margin-bottom:0; margin-top:10px;"><a href="teklif.html" class="btn btn-solid" style="justify-content:center;">Rezervasyon Formu →</a></div>';
 }
 
 async function loadCategories(){
